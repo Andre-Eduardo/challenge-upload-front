@@ -1,5 +1,5 @@
 import { FaRegArrowAltCircleUp } from 'react-icons/fa'
-import tailwindConfig from '../../tailwind.config.mjs'
+import tailwindConfig from '../../../tailwind.config.mjs'
 export function ButtonUpload() {
   return (
     <button

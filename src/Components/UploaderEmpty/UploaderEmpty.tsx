@@ -1,6 +1,6 @@
-import { ButtonUpload } from './ButtonUpload'
+import { ButtonUpload } from '../ButtonUpload/ButtonUpload'
 
-export function CarouselUploader() {
+export function UploaderEmpty() {
   return (
     <div
       className="flex max-h-[239px] max-w-[824px]  flex-col items-center justify-center
