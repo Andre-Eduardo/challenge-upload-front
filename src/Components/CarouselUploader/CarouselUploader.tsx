@@ -4,27 +4,21 @@ import { BoxImage } from 'Components/BoxImage/BoxImage'
 import { useEffect, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { UploaderEmpty } from '../UploaderEmpty/UploaderEmpty'
+import { OverlayBox } from 'Components/OverlayBox/OverlayBox'
+import { BoxNewImage } from 'Components/BoxNewImage/BoxNewImage'
 
 export function CarouselUploader() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [showOverlay, setShowOverlay] = useState(false)
   const [imagensURL, setImagensURL] = useState([])
   const {
-    acceptedFiles,
-    fileRejections,
-    isDragActive,
-
     getRootProps,
-    getInputProps
-  } = useDropzone({
-    accept: {
-      'image/jpg': [],
-      'image/png': []
-    }
-  })
-  const toggleOverlay = () => {
-    setShowOverlay(!showOverlay)
-  }
+    getInputProps,
+    acceptedFiles,
+    isFocused,
+    isDragAccept,
+    isDragActive,
+    isDragReject
+  } = useDropzone({ accept: { 'image/*': [] }, noClick: true })
 
   const scrollNext = () => {
     if (containerRef.current) {
@@ -37,25 +31,30 @@ export function CarouselUploader() {
       containerRef.current.scrollLeft -= containerRef.current.offsetWidth
     }
   }
+
   useEffect(() => {
-    console.log(acceptedFiles)
     handleUrlImages()
   }, [acceptedFiles])
 
   function handleDropzone() {
-    return !acceptedFiles.length ? (
-      <UploaderEmpty {...getRootProps()} isDragActive={isDragActive} />
+    return !imagensURL.length ? (
+      <UploaderEmpty setImages={setImagensURL} imagensURL={imagensURL} />
     ) : (
       <>
-        <button onClick={toggleOverlay}>Clique aqui</button>
         <div
+          {...getRootProps({ noClick: true })}
           ref={containerRef}
           className=" relative flex  w-[824px] flex-row gap-5 overflow-x-auto scroll-smooth rounded-2xl bg-white p-4 shadow-lg "
         >
-          <BoxImage isNew={true} onClick={() => {}} />
+          <BoxNewImage setImages={setImagensURL} imagensURL={imagensURL} />
           {imagensURL.map((url, index) => {
             return <BoxImage key={index} url={url} onClick={() => {}} />
           })}
+          <OverlayBox
+            DropZoneProps={getRootProps}
+            show={isDragActive}
+            erro={isDragReject}
+          />
         </div>
       </>
     )

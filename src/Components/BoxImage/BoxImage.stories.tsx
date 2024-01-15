@@ -5,8 +5,7 @@ export default {
   component: BoxImage,
 
   args: {
-    url: 'teste',
-    isNew: false
+    url: 'teste'
   },
   title: 'Components/Box Image'
   // Our exports that end in "Data" are not stories.

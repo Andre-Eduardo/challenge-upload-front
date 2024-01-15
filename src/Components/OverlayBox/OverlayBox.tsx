@@ -1,13 +1,20 @@
+import { DropzoneRootProps } from 'react-dropzone'
 import { IoMdClose } from 'react-icons/io'
 import { MdOutlineFileUpload } from 'react-icons/md'
 
 export interface OverlayBoxProps {
   show: boolean
   erro?: boolean
+  DropZoneProps: <T extends DropzoneRootProps>(props?: T) => T
 }
-export function OverlayBox({ show, erro = false }: OverlayBoxProps) {
+export function OverlayBox({
+  show,
+  erro = false,
+  DropZoneProps
+}: OverlayBoxProps) {
   return (
     <div
+      {...DropZoneProps()}
       className={`absolute inset-0 flex flex-col items-center justify-center bg-darkGray_200 ${
         show ? 'visible bg-opacity-80' : 'invisible'
       }`}
