@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import { DropzoneRootProps } from 'react-dropzone'
 import { IoMdClose } from 'react-icons/io'
 import { MdOutlineFileUpload } from 'react-icons/md'
@@ -6,17 +7,49 @@ export interface OverlayBoxProps {
   show: boolean
   erro?: boolean
   DropZoneProps: <T extends DropzoneRootProps>(props?: T) => T
+  getInputProps: any
+  acceptedFiles: any
+  setImages: Dispatch<SetStateAction<string[] | never[]>>
+  imagensURL: string[]
 }
 export function OverlayBox({
   show,
   erro = false,
-  DropZoneProps
+  DropZoneProps,
+  getInputProps,
+  setImages,
+  imagensURL,
+  acceptedFiles
 }: OverlayBoxProps) {
+  function handleUrlImages() {
+    if (acceptedFiles.length > 0) {
+      const novasImagensURL = [...imagensURL] // Criar uma cópia do estado atual
+
+      acceptedFiles.forEach((file) => {
+        const leitor = new FileReader()
+
+        leitor.onload = function (event: ProgressEvent<FileReader>) {
+          if (event.target) {
+            const novaImagemURL = event.target.result as string
+            novasImagensURL.push(novaImagemURL) // Adicionar a nova imagem à cópia
+
+            setImages(novasImagensURL)
+          }
+        }
+
+        leitor.readAsDataURL(file)
+      })
+    }
+  }
+  useEffect(() => {
+    handleUrlImages()
+  }, [acceptedFiles])
+
   return (
     <div
       {...DropZoneProps()}
-      className={`absolute inset-0 flex flex-col items-center justify-center bg-darkGray_200 ${
-        show ? 'visible bg-opacity-80' : 'invisible'
+      className={`absolute inset-0 flex flex-col items-center justify-center rounded-2xl bg-darkGray_200 opacity-80 ${
+        show ? 'visible ' : 'invisible'
       }`}
     >
       {!erro ? (
@@ -42,6 +75,7 @@ export function OverlayBox({
           </p>
         </>
       )}
+      <input {...getInputProps()} />
     </div>
   )
 }

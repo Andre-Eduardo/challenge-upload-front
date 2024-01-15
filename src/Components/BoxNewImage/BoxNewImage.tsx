@@ -4,30 +4,35 @@ import {
   SetStateAction,
   useEffect
 } from 'react'
-import { DropzoneRootProps, useDropzone } from 'react-dropzone'
+import { useDropzone } from 'react-dropzone'
 import { IoIosAdd } from 'react-icons/io'
 export interface BoxNewImageProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
-  setImages: Dispatch<SetStateAction<never[]>>
-  imagensURL: any
+  setImages: Dispatch<SetStateAction<string[] | never[]>>
+  imagensURL: string[]
 }
 export function BoxNewImage({ setImages, imagensURL }: BoxNewImageProps) {
-  const { getRootProps, acceptedFiles } = useDropzone({
+  const { getRootProps, acceptedFiles, getInputProps } = useDropzone({
     accept: { 'image/*': [] }
   })
   function handleUrlImages() {
     if (acceptedFiles.length > 0) {
-      const leitor = new FileReader()
+      const novasImagensURL = [...imagensURL] // Criar uma cópia do estado atual
 
-      leitor.onload = function (event) {
-        const novasImagensURL = [...imagensURL, event.target.result]
-        setImages(novasImagensURL)
-      }
+      acceptedFiles.forEach((file) => {
+        const leitor = new FileReader()
 
-      // Lê cada arquivo da lista
-      for (let i = 0; i < acceptedFiles.length; i++) {
-        leitor.readAsDataURL(acceptedFiles[i])
-      }
+        leitor.onload = function (event: ProgressEvent<FileReader>) {
+          if (event.target) {
+            const novaImagemURL = event.target.result as string
+            novasImagensURL.push(novaImagemURL) // Adicionar a nova imagem à cópia
+
+            setImages(novasImagensURL)
+          }
+        }
+
+        leitor.readAsDataURL(file)
+      })
     }
   }
   useEffect(() => {
@@ -40,6 +45,7 @@ export function BoxNewImage({ setImages, imagensURL }: BoxNewImageProps) {
     >
       <IoIosAdd size={100} className="w-full text-darkGray_100" />
       <span className="text-xl font-normal text-gray_900">Add new images</span>
+      <input {...getInputProps()} />
     </button>
   )
 }

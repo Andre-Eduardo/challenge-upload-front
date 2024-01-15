@@ -1,28 +1,32 @@
-import { DropzoneRootProps, useDropzone } from 'react-dropzone'
-import { ButtonUpload } from '../ButtonUpload/ButtonUpload'
 import { Dispatch, SetStateAction, useEffect } from 'react'
+import { useDropzone } from 'react-dropzone'
+import { ButtonUpload } from '../ButtonUpload/ButtonUpload'
 export interface UploaderEmptyProps {
-  setImages: Dispatch<SetStateAction<never[]>>
-  imagensURL: any
+  setImages: Dispatch<SetStateAction<string[] | never[]>>
+  imagensURL: string[]
 }
 export function UploaderEmpty({ setImages, imagensURL }: UploaderEmptyProps) {
-  const { getRootProps, getInputProps, acceptedFiles, isDragActive } =
-    useDropzone({
-      accept: { 'image/*': [] }
-    })
+  const { getRootProps, acceptedFiles, isDragActive } = useDropzone({
+    accept: { 'image/*': [] }
+  })
   function handleUrlImages() {
     if (acceptedFiles.length > 0) {
-      const leitor = new FileReader()
+      const novasImagensURL = [...imagensURL] // Criar uma cópia do estado atual
 
-      leitor.onload = function (event) {
-        const novasImagensURL = [...imagensURL, event.target.result]
-        setImages(novasImagensURL)
-      }
+      acceptedFiles.forEach((file) => {
+        const leitor = new FileReader()
 
-      // Lê cada arquivo da lista
-      for (let i = 0; i < acceptedFiles.length; i++) {
-        leitor.readAsDataURL(acceptedFiles[i])
-      }
+        leitor.onload = function (event: ProgressEvent<FileReader>) {
+          if (event.target) {
+            const novaImagemURL = event.target.result as string
+            novasImagensURL.push(novaImagemURL) // Adicionar a nova imagem à cópia
+
+            setImages(novasImagensURL)
+          }
+        }
+
+        leitor.readAsDataURL(file)
+      })
     }
   }
   useEffect(() => {
