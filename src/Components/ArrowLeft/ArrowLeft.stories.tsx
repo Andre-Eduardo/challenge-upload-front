@@ -5,7 +5,8 @@ export default {
   component: ArrowLeft,
   title: 'Components/Arrow Left',
   args: {
-    fill: false
+    fill: false,
+    size: 32
   }
   // Our exports that end in "Data" are not stories.
 } as Meta<ArrowLeftProps>
