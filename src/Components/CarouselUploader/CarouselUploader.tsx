@@ -13,7 +13,7 @@ export function CarouselUploader() {
   const [imagensURL, setImagensURL] = useState<string[]>([])
   const [ScrollLeft, setScrollLeft] = useState(false)
   const [ScrollRight, setScrollRight] = useState(false)
-  const [loadImage, setLoadImage] = useState(true)
+
   const {
     getRootProps,
     getInputProps,
@@ -66,9 +66,9 @@ export function CarouselUploader() {
       acceptedFiles.forEach((file) => {
         const leitor = new FileReader()
 
-        leitor.onload = function () {
-          if (leitor.target?.result) {
-            const novaImagemURL = leitor.target.result as string
+        leitor.onload = function (event) {
+          if (event.target) {
+            const novaImagemURL = event.target.result as string
             novasImagensURL.push(novaImagemURL)
 
             if (novasImagensURL.length === acceptedFiles.length) {
@@ -102,6 +102,7 @@ export function CarouselUploader() {
       <div className="relative ">
         <div
           {...getRootProps()}
+          data-testid="dropzoneContainer"
           ref={containerRef}
           className=" flex w-[825px]  flex-row gap-5 overflow-x-auto overflow-y-hidden
           scroll-smooth rounded-2xl bg-white p-4 shadow-lg "
@@ -110,7 +111,7 @@ export function CarouselUploader() {
           {imagensURL.map((url, index) => {
             return (
               <BoxImage
-                upload={false}
+                upload={false} // adicionar propriedade de upload posteriormente
                 key={index}
                 url={url}
                 onRemove={() => removeImage(url)}
@@ -145,7 +146,11 @@ export function CarouselUploader() {
 
       <>{handleDropzone()}</>
 
-      <ArrowRight fill={ScrollRight} onClick={scrollNext} />
+      <ArrowRight
+        data-testid="arrow-right"
+        fill={ScrollRight}
+        onClick={scrollNext}
+      />
     </div>
   )
 }

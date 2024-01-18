@@ -1,80 +1,34 @@
-![reactjs-vite-tailwindcss-boilerplate](https://user-images.githubusercontent.com/16243531/217138979-b854309c-4742-4275-a705-f9fec5158217.jpg)
+# Carousel Uploader Component
 
-# React Tailwindcss Boilerplate build with Vite
+Este é um projeto desenvolvido como parte do Desafio Desenvolvedor Frontend. O objetivo do desafio foi alcançado com sucesso, e o componente <CarouselUploader /> foi implementado com os seguintes recursos:
 
-This is a boilerplate build with Vite, React 18, TypeScript, Vitest, Testing Library, TailwindCSS 3, Eslint and Prettier.
+- Permite que o usuário carregue uma imagem ao clicar no componente ou arrastando e soltando no local indicado.
+- Permite que o usuário remova uma imagem carregada.
+- Permite que o usuário navegue entre as imagens carregadas por um carousel.
+- Ao carregar uma imagem, a mesma é colocada no final da lista de imagens e é visível no carousel (realizando scroll automático, se necessário).
 
-## What is inside?
+## Tecnologias Utilizadas
 
-This project uses many tools like:
+- React
+- Typescript
+- Storybook
+- Vite
+- jest
+- React test libary
+- Design (disponível no [Figma](https://www.figma.com/))
 
-- [Vite](https://vitejs.dev)
-- [ReactJS](https://reactjs.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Vitest](https://vitest.dev)
-- [Testing Library](https://testing-library.com)
-- [Tailwindcss](https://tailwindcss.com)
-- [Eslint](https://eslint.org)
-- [Prettier](https://prettier.io)
+## Como Executar o Projeto
 
-## Getting Started
+1. Clone este repositório.
+1. Instale as dependências usando o comando: `npm install` ou `yarn install`.
+1. Execute o projeto com: `npm dev` ou `yarn dev`.
 
-### Install
+## Como Executar os Testes
 
-Create the project.
+1. Certifique-se de que o ambiente está configurado corretamente e que as dependências foram instaladas.
+1. Para executar os testes, utilize o comando: `npm test` ou `yarn test`.
 
-```bash
-npx degit joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate my-app
-```
+## Como Visualizar no Storybook
 
-Access the project directory.
-
-```bash
-cd my-app
-```
-
-Install dependencies.
-
-```bash
-pnpm install
-```
-
-Serve with hot reload at <http://localhost:5173>.
-
-```bash
-pnpm run dev
-```
-
-### Lint
-
-```bash
-pnpm run lint
-```
-
-### Typecheck
-
-```bash
-pnpm run typecheck
-```
-
-### Build
-
-```bash
-pnpm run build
-```
-
-### Test
-
-```bash
-pnpm run test
-```
-
-View and interact with your tests via UI.
-
-```bash
-pnpm run test:ui
-```
-
-## License
-
-This project is licensed under the MIT License.
+1. O Storybook é uma ferramenta que permite visualizar e interagir com os componentes de forma isolada.
+1. Para iniciar o Storybook, utilize o comando: `npm run storybook` ou `yarn storybook`.

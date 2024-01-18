@@ -12,26 +12,31 @@ export interface BoxNewImageProps
   imagensURL: string[]
 }
 export function BoxNewImage({ setImages, imagensURL }: BoxNewImageProps) {
-  const { getRootProps, acceptedFiles } = useDropzone({
+  const { getRootProps, acceptedFiles, getInputProps } = useDropzone({
     accept: { 'image/*': [] }
   })
   function handleUrlImages() {
     if (acceptedFiles.length > 0) {
       const leitor = new FileReader()
-
       leitor.onload = function (event) {
-        const novasImagensURL = [...imagensURL, event.target.result]
-        setImages(novasImagensURL)
+        if (event.target) {
+          const novasImagensURL = [
+            ...imagensURL,
+            event.target.result
+          ] as string[]
+          setImages(novasImagensURL)
+        }
       }
 
-      // Lê cada arquivo da lista
       for (let i = 0; i < acceptedFiles.length; i++) {
         leitor.readAsDataURL(acceptedFiles[i])
       }
     }
   }
   useEffect(() => {
-    handleUrlImages()
+    if (acceptedFiles.length > 0) {
+      handleUrlImages()
+    }
   }, [acceptedFiles])
   return (
     <button
@@ -40,6 +45,7 @@ export function BoxNewImage({ setImages, imagensURL }: BoxNewImageProps) {
     >
       <IoIosAdd size={100} className="w-full text-darkGray_100" />
       <span className="text-xl font-normal text-gray_900">Add new images</span>
+      <input data-testid="image-uploader" {...getInputProps()} />
     </button>
   )
 }

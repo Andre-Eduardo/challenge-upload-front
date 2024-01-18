@@ -6,9 +6,10 @@ export interface UploaderEmptyProps {
   imagensURL: string[]
 }
 export function UploaderEmpty({ setImages, imagensURL }: UploaderEmptyProps) {
-  const { getRootProps, acceptedFiles, isDragActive } = useDropzone({
-    accept: { 'image/*': [] }
-  })
+  const { getRootProps, acceptedFiles, isDragActive, getInputProps } =
+    useDropzone({
+      accept: { 'image/*': [] }
+    })
   function handleUrlImages() {
     if (acceptedFiles.length > 0) {
       const novasImagensURL = [...imagensURL] // Criar uma cópia do estado atual
@@ -45,6 +46,7 @@ export function UploaderEmpty({ setImages, imagensURL }: UploaderEmptyProps) {
       <p className=" text-[28px] font-normal text-gray_900">
         Drag and drop a file here
       </p>
+      <input data-testid="input-UploaderEmpty" {...getInputProps()} />
     </div>
   )
 }

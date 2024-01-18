@@ -1,7 +1,8 @@
 import { ButtonHTMLAttributes } from 'react'
 import { BiLeftArrow, BiSolidLeftArrow } from 'react-icons/bi'
 
-interface ArrowLeftProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ArrowLeftProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   fill: boolean
   size?: number
 }

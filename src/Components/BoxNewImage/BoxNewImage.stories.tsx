@@ -6,6 +6,5 @@ export default {
   component: BoxNewImage,
 
   title: 'Components/Box new Image'
-  // Our exports that end in "Data" are not stories.
 } as Meta<BoxNewImageProps>
 export const Default: StoryObj<BoxNewImageProps> = {}

@@ -8,6 +8,5 @@ export default {
     fill: false,
     size: 32
   }
-  // Our exports that end in "Data" are not stories.
 } as Meta<ArrowLeftProps>
 export const Default: StoryObj<ArrowLeftProps> = {}

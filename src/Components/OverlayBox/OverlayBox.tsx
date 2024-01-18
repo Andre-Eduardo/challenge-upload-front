@@ -23,15 +23,15 @@ export function OverlayBox({
 }: OverlayBoxProps) {
   function handleUrlImages() {
     if (acceptedFiles.length > 0) {
-      const novasImagensURL = [...imagensURL] // Criar uma cópia do estado atual
+      const novasImagensURL = [...imagensURL]
 
-      acceptedFiles.forEach((file) => {
+      acceptedFiles.forEach((file: Blob) => {
         const leitor = new FileReader()
 
         leitor.onload = function (event: ProgressEvent<FileReader>) {
           if (event.target) {
             const novaImagemURL = event.target.result as string
-            novasImagensURL.push(novaImagemURL) // Adicionar a nova imagem à cópia
+            novasImagensURL.push(novaImagemURL)
 
             setImages(novasImagensURL)
           }
@@ -75,7 +75,7 @@ export function OverlayBox({
           </p>
         </>
       )}
-      <input {...getInputProps()} />
+      <input data-testid="overlay-input" {...getInputProps()} />
     </div>
   )
 }

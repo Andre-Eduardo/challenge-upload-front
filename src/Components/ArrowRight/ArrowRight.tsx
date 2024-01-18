@@ -17,9 +17,17 @@ export function ArrowRight({
       {...buttonProps}
     >
       {fill ? (
-        <BiSolidRightArrow className="text-gray_650" size={size} />
+        <BiSolidRightArrow
+          data-testid="rightSolidButton"
+          className="text-gray_650"
+          size={size}
+        />
       ) : (
-        <BiRightArrow className="text-gray_650" size={size} />
+        <BiRightArrow
+          data-testid="rightButton"
+          className="text-gray_650"
+          size={size}
+        />
       )}
     </button>
   )
