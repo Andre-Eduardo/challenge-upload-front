@@ -1,6 +1,6 @@
 # Carousel Uploader Component
 
-Este é um projeto desenvolvido como parte do Desafio Desenvolvedor Frontend. O objetivo do desafio foi alcançado com sucesso, e o componente <CarouselUploader /> foi implementado com os seguintes recursos:
+Este é um projeto desenvolvido como parte do Desafio Desenvolvedor Frontend. O componente <CarouselUploader /> foi implementado com os seguintes recursos:
 
 - Permite que o usuário carregue uma imagem ao clicar no componente ou arrastando e soltando no local indicado.
 - Permite que o usuário remova uma imagem carregada.
